@@ -20,7 +20,13 @@
 #define NODEID 1
 #define NETWORKID 100
 #define FREQUENCY RF69_915MHZ
-#define RADIO_INTERRUPT 5
+
+// DIO0 GPIO5 (configurable, see below)
+// NSS  GPIO15 (CS)
+// CLK  GPIO14
+// MOSI GPIO13
+// MISO GPIO12
+#define RADIO_INTERRUPT 5 // DIO0
 RFM69 radio(15, RADIO_INTERRUPT, false, RADIO_INTERRUPT);
 bool radioInit;
 
