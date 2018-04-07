@@ -14,11 +14,11 @@ install:
 script:
 - platformio run
 deploy:
+  provider: releases
   on:
     repo: chris03/rfm69-to-wifi
     all_branches: true
-    condition: $TRAVIS_TAG =~ ^[0-9]+\.[0-9]+\.[0-9]+$
-  provider: releases
+    tags: true
   skip_cleanup: true
   file: ".pioenvs/esp12e/firmware.bin"
   api_key:
