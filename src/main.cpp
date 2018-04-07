@@ -15,6 +15,7 @@
 //   https://github.com/LowPowerLab/RFM69
 //   https://github.com/LowPowerLab/SI7021
 //
+#include <Arduino.h>
 #include <RFM69.h>
 #define NODEID 1
 #define NETWORKID 100
