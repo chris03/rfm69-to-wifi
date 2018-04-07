@@ -1,5 +1,7 @@
 # rfm69-to-wifi
 
+[![Build Status](https://travis-ci.org/chris03/rfm69-to-wifi.svg?branch=master)](https://travis-ci.org/chris03/rfm69-to-wifi)
+
 ## Purpose
 * Receive data on the RFM69 radio and POST it to a remote server via Wifi.
 * Accept OTA (over the air) updates.
