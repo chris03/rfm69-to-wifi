@@ -1,18 +1,24 @@
 language: python
 python:
-    - "2.7"
-
+- '2.7'
 sudo: false
 cache:
-    directories:
-        - "~/.platformio"
-
+  directories:
+  - "~/.platformio"
 install:
-     - pip install -U platformio
-     - platformio update
-     - echo "const char *ssid = \"\";" > src/secrets.h
-     - echo "const char *password = \"\";" >> src/secrets.h
-     - echo "const String serverUrl = \"\";" >> src/secrets.h
-
+- pip install -U platformio
+- platformio update
+- echo "const char *ssid = \"\";" > src/secrets.h
+- echo "const char *password = \"\";" >> src/secrets.h
+- echo "const String serverUrl = \"\";" >> src/secrets.h
 script:
-    - platformio run
+- platformio run
+deploy:
+  on:
+    repo: chris03/rfm69-to-wifi
+    condition: $TRAVIS_TAG =~ ^[0-9]+\.[0-9]+\.[0-9]+$
+  provider: releases
+  skip_cleanup: true
+  file: ".pioenvs/esp12e/firmware.bin"
+  api_key:
+    secure: QeC44PklUVVgipbQp2/QkoAyj4LYnL6L7muYekJ8ukWfP8D5f4V2N4iZ8JoKCkbZrmta9VV9sog4UuThCIxDcDw1OKtCFnH2d8rEDZVPAdAo8rZkwaIGr9PS8eUhZRqg+BD3+OrO814rgcyeCYxYfGmD99OQguOCpIZTcipRiLWTXHB+mvpHuMAewMNGhUQqKJnE37FfoyIJz7eVV6dk2fZWJ3DroTY/PRiE3HoG6pXdkIiZKMgT6pp6hXiWh2FM6I1v7aqLjugNUy6r2IF+lfVM2A7Dvin8PJ9praI7FVWaQ5f2+ieeQ/XG28vlbej8pMigVZKgPqY3qQUs42NzNhddATJXP2LJFlACUnzgdNXwp7GuSJfRwEVLGUu69aFk2CcA1Os2bLtm1Ai9em13LvhoPwDfhvmTPZX9O68Db4ZUsotYtkGAMMt+mg3lLQPj0kiKoITfaeD9zRuvC/sUUGe5wk8UZNxf6MBbnGP6PiG2rfh1d7xGzv7No5JWoenssZ/JbM6JZ8q73RFVVwwov2p3k5M+mcf6KcZK/ZbBiRDWIE3kDJVxyykCN1C37XEqo6MiHKatJgZ15qNtHumsuuzXG0mpPn55zS46G3zuh6pJjXiGmR6jGU+yz4EtPUQIsoUvnnQTbaTTebI+w/oetWLecglh0mweiN5HK9N6dWo=
