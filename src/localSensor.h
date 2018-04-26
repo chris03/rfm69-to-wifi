@@ -9,7 +9,7 @@ const int UPDATE_INTERVAL = 30 * 1000; // 30 sec.
 const uint8_t SENSOR_ID = 51;
 SI7021 sensor;
 bool sensorOk = false;
-long nextUpdate = 0;
+unsigned long nextUpdate = 0;
 
 void setup()
 {
