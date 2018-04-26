@@ -16,9 +16,11 @@
 //   https://github.com/LowPowerLab/SI7021
 //
 #include <Arduino.h>
-#include "sensor.h"
+#include "httpClient.h"
 #include "wifi.h"
 #include "ota.h"
+#include "localSensor.h"
+#include "remoteSensor.h"
 #include "radio.h"
 #include "radioLog.h"
 #include "web.h"
@@ -32,7 +34,7 @@ void setup(void)
 
   setupWifi();
   setupOta();
-  setupSensor();
+  LocalSensor::setup();
   setupRadio();
   setupWebServer();
 }
@@ -43,9 +45,12 @@ void loop(void)
 
   server.handleClient();
 
-  if (radio.receiveDone())
+  LocalSensor::loop();
+
+  if (radioInit && radio.receiveDone())
   {
-    Serial.println("ReceiveDone");
+    Serial.println("");
+    Serial.println("----Receive Done----");
 
     String data((char *)radio.DATA);
     String senderId = String(radio.SENDERID);
@@ -53,15 +58,10 @@ void loop(void)
     data += "(ID|" + senderId + ")";
     data += "(RSSI|" + rssi + ")";
 
+    RadioLog::add(data);
+
     Serial.println(data);
 
-    httpPost(data, serverUrl);
-
-    if (radioLogSize < radioLogMaxSize)
-    {
-      radioLogSize++;
-    }
-    radioLog[radioLogIndex] = data;
-    radioLogIndex = (radioLogIndex + 1) % radioLogMaxSize;
+    parseReceivedData(radio.SENDERID, (char *)radio.DATA, serverUrl);
   }
 }
