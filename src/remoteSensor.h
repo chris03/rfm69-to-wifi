@@ -41,7 +41,7 @@ void parseReceivedData(const uint8_t senderId, const char *data, const String &s
         {
             char temp[8];
             char hum[4];
-            const char *baro = "0;0";
+            const char *baro = ";0;0";
 
             ms.GetCapture(temp, 0);
             ms.GetCapture(hum, 1);
@@ -51,7 +51,7 @@ void parseReceivedData(const uint8_t senderId, const char *data, const String &s
             Serial.println(toSend);
 
             // Format output
-            snprintf(toSend, sizeof(toSend), "idx=%i&nvalue=0&svalue=%s;%s;%s", s.tempId, temp, hum, s.hasBarometer ? baro : "");
+            snprintf(toSend, sizeof(toSend), "idx=%i&nvalue=0&svalue=%s;%s;0%s", s.tempId, temp, hum, s.hasBarometer ? baro : "");
             Serial.println(toSend);
 
             // Send to server

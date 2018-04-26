@@ -31,7 +31,7 @@ void loop()
         snprintf(buffer, sizeof(buffer), "Temp: %.2f  Hum: %i", temp, hum);
         Serial.println(buffer);
 
-        snprintf(buffer, sizeof(buffer), "idx=%i&nvalue=0&svalue=%.2f;%i", SENSOR_ID, temp, hum);
+        snprintf(buffer, sizeof(buffer), "idx=%i&nvalue=0&svalue=%.2f;%i;0", SENSOR_ID, temp, hum);
         Serial.println(buffer);
         Serial.println(httpGet(serverUrl + "json.htm?type=command&param=udevice&" + String(buffer)));
 
